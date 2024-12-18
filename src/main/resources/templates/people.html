@@ -1,43 +1,131 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Users List</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Users List</h1>-->
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Username</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Age</th>-->
+<!--        <th>Roles</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="user : ${people}">-->
+<!--        <td th:text="${user.id}"></td>-->
+<!--        <td th:text="${user.name}"></td>-->
+<!--        <td th:text="${user.username}"></td>-->
+<!--        <td th:text="${user.email}"></td>-->
+<!--        <td th:text="${user.age}"></td>-->
+<!--        <td>-->
+<!--            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/admin/find/edit(id=${user.id})}">Edit</a> |-->
+<!--            <form th:action="@{/admin/find/edit(id=${user.id})}" method="post" th:method="delete">-->
+<!--                <button type="submit">Delete</button>-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--<a href="/admin/new">Create New User</a>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Users List</title>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Users List</h1>
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/logout" class="btn btn-outline-light">Logout</a>
+</nav>
 
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Age</th>
-        <th>Roles</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${people}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.age}"></td>
-        <td>
-            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
-        </td>
-        <td>
-            <a th:href="@{/admin/find/edit(id=${user.id})}">Edit</a> |
-            <form th:action="@{/admin/find/edit(id=${user.id})}" method="post" th:method="delete">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/people">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">User</a>
+                </li>
+            </ul>
+        </div>
 
-<a href="/admin/new">Create New User</a>
+        <div class="col-md-10">
+            <h1>Admin panel</h1>
+
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Users table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/new">New User</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">All users</h5>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${people}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.age}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td>
+                                <span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span>
+                            </td>
+                            <td>
+                                <a th:href="@{/admin/find/edit(id=${user.id})}" class="btn btn-info btn-sm">Edit</a>
+                            </td>
+                            <td>
+                                <form th:action="@{/admin/find/edit(id=${user.id})}" method="post" th:method="delete">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

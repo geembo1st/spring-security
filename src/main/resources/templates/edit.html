@@ -1,37 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Edit User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Edit User</h1>
+<div class="container mt-5">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit user</h5>
+                <a href="/admin/people" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/find/edit}" th:object="${user}" method="post">
+                    <input type="hidden" name="_method" value="PATCH" />
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{password}" />
 
-<form th:action="@{/admin/find/edit(id=${user.id})}" th:object="${user}" method="post">
-    <input type="hidden" name="_method" value="PATCH">
-    <input type="hidden" name="id" th:value="${user.id}">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" th:field="*{name}" id="name"/>
-    </div>
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" th:field="*{username}" id="username"/>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" th:field="*{email}" id="email"/>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" th:field="*{password}" id="password"/>
-    </div>
-    <div>
-        <label for="age">Age:</label>
-        <input type="number" th:field="*{age}" id="age"/>
-    </div>
-    <button type="submit">Save Changes</button>
-</form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" />
+                    </div>
 
-<a href="/admin">Back to Users List</a>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" th:field="*{username}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" th:field="*{age}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" th:field="*{password}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Roles</label>
+                        <select multiple class="form-control" id="role" name="role">
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.name}"
+                                    th:text="${role.name}"
+                                    th:selected="${user.roles.contains(role)}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="/admin/people" class="btn btn-secondary">Close</a>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
