@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.PeopleRepositories;
+import ru.kata.spring.boot_security.demo.util.PersonNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User showUserById(Long id) {
         Optional<User> foundUser = peopleRepositories.findById(id);
-        return foundUser.orElse(null);
+        return foundUser.orElseThrow(PersonNotFoundException::new);
     }
 
     @Transactional
